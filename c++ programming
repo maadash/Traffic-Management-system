@@ -1,0 +1,150 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+class Lane {
+public:
+    string name;
+    int vehicles[50];
+    int count;
+
+    Lane() {
+        name = "";
+        count = 0;
+    }
+
+    void setName(string laneName) {
+        name = laneName;
+    }
+
+    void addVehicle(int id, ofstream &log) {
+        if (count < 50) {
+            vehicles[count++] = id;
+            cout << "Vehicle " << id << " added to " << name << " lane.\n";
+            log << "Vehicle " << id << " added to " << name << " lane.\n";
+        } else {
+            cout << "Lane full. Cannot add more vehicles to " << name << ".\n";
+            log << "Lane full. Cannot add more vehicles to " << name << ".\n";
+        }
+    }
+
+    void passVehicles(int limit, ofstream &log) {
+        cout << "\nGreen signal for " << name << " lane.\n";
+        log << "\nGreen signal for " << name << " lane.\n";
+        delay();
+
+        int passed = 0;
+        for (int i = 0; i < limit && i < count; i++) {
+            cout << "Vehicle " << vehicles[i] << " passed from " << name << " lane.\n";
+            log << "Vehicle " << vehicles[i] << " passed from " << name << " lane.\n";
+            delay(3000000);
+            passed++;
+        }
+
+        // Shift remaining vehicles
+        for (int i = passed; i < count; i++) {
+            vehicles[i - passed] = vehicles[i];
+        }
+        count -= passed;
+
+        if (count == 0) {
+            cout << name << " lane is now empty.\n";
+            log << name << " lane is now empty.\n";
+        } else {
+            cout << count << " vehicle(s) still waiting in " << name << " lane.\n";
+            log << count << " vehicle(s) still waiting in " << name << " lane.\n";
+        }
+
+        cout << "Red signal for " << name << " lane.\n";
+        log << "Red signal for " << name << " lane.\n";
+        delay();
+    }
+
+    void showStatus(ofstream &log) {
+        cout << name << " lane: ";
+        log << name << " lane: ";
+        if (count == 0) {
+            cout << "No vehicles.\n";
+            log << "No vehicles.\n";
+        } else {
+            for (int i = 0; i < count; i++) {
+                cout << vehicles[i] << " ";
+                log << vehicles[i] << " ";
+            }
+            cout << "\n";
+            log << "\n";
+        }
+    }
+
+private:
+    void delay(long t = 5000000) {
+        for (volatile long i = 0; i < t; i++);
+    }
+};
+
+int main() {
+    int laneCount, cycles, passLimit;
+    int vehicleID = 1;
+
+    ofstream log("traffic_output.txt");
+    if (!log) {
+        cerr << "Error opening file.\n";
+        return 1;
+    }
+
+    cout << "Traffic Signal Management Simulation\n";
+    log << "Traffic Signal Management Simulation\n";
+
+    cout << "Enter number of lanes (maximum 4 recommended): ";
+    cin >> laneCount;
+    log << "Number of lanes: " << laneCount << "\n";
+
+    Lane lanes[10];
+
+    for (int i = 0; i < laneCount; i++) {
+        string lname;
+        cout << "\nEnter name for lane " << i + 1 << ": ";
+        cin >> lname;
+        lanes[i].setName(lname);
+        log << "Lane " << (i + 1) << " name: " << lname << "\n";
+
+        int numVehicles;
+        cout << "Enter number of vehicles in " << lname << " lane: ";
+        cin >> numVehicles;
+        log << "Initial vehicle count in " << lname << ": " << numVehicles << "\n";
+
+        for (int j = 0; j < numVehicles; j++) {
+            lanes[i].addVehicle(vehicleID++, log);
+        }
+    }
+
+    cout << "\nEnter number of signal cycles to simulate: ";
+    cin >> cycles;
+    log << "Signal cycles: " << cycles << "\n";
+
+    cout << "Enter maximum number of vehicles allowed per green signal: ";
+    cin >> passLimit;
+    log << "Max vehicles per green: " << passLimit << "\n";
+
+    for (int c = 1; c <= cycles; c++) {
+        cout << "\n--- Starting Cycle " << c << " ---\n";
+        log << "\n--- Starting Cycle " << c << " ---\n";
+
+        for (int i = 0; i < laneCount; i++) {
+            lanes[i].passVehicles(passLimit, log);
+        }
+    }
+
+    cout << "\nFinal Lane Status:\n";
+    log << "\nFinal Lane Status:\n";
+
+    for (int i = 0; i < laneCount; i++) {
+        lanes[i].showStatus(log);
+    }
+
+    cout << "\nSimulation complete.\n";
+    log << "\nSimulation complete.\n";
+
+    log.close();
+    return 0;
+}
