@@ -1,0 +1,116 @@
+Traffic Signal Management Simulation
+Number of lanes: 4
+Lane 1 name: north
+Initial vehicle count in north: 3
+Vehicle 1 added to north lane.
+Vehicle 2 added to north lane.
+Vehicle 3 added to north lane.
+Lane 2 name: south
+Initial vehicle count in south: 3
+Vehicle 4 added to south lane.
+Vehicle 5 added to south lane.
+Vehicle 6 added to south lane.
+Lane 3 name: east
+Initial vehicle count in east: 2
+Vehicle 7 added to east lane.
+Vehicle 8 added to east lane.
+Lane 4 name: west
+Initial vehicle count in west: 4
+Vehicle 9 added to west lane.
+Vehicle 10 added to west lane.
+Vehicle 11 added to west lane.
+Vehicle 12 added to west lane.
+Signal cycles: 4
+Max vehicles per green: 2
+
+--- Starting Cycle 1 ---
+
+Green signal for north lane.
+Vehicle 1 passed from north lane.
+Vehicle 2 passed from north lane.
+1 vehicle(s) still waiting in north lane.
+Red signal for north lane.
+
+Green signal for south lane.
+Vehicle 4 passed from south lane.
+Vehicle 5 passed from south lane.
+1 vehicle(s) still waiting in south lane.
+Red signal for south lane.
+
+Green signal for east lane.
+Vehicle 7 passed from east lane.
+Vehicle 8 passed from east lane.
+east lane is now empty.
+Red signal for east lane.
+
+Green signal for west lane.
+Vehicle 9 passed from west lane.
+Vehicle 10 passed from west lane.
+2 vehicle(s) still waiting in west lane.
+Red signal for west lane.
+
+--- Starting Cycle 2 ---
+
+Green signal for north lane.
+Vehicle 3 passed from north lane.
+north lane is now empty.
+Red signal for north lane.
+
+Green signal for south lane.
+Vehicle 6 passed from south lane.
+south lane is now empty.
+Red signal for south lane.
+
+Green signal for east lane.
+east lane is now empty.
+Red signal for east lane.
+
+Green signal for west lane.
+Vehicle 11 passed from west lane.
+Vehicle 12 passed from west lane.
+west lane is now empty.
+Red signal for west lane.
+
+--- Starting Cycle 3 ---
+
+Green signal for north lane.
+north lane is now empty.
+Red signal for north lane.
+
+Green signal for south lane.
+south lane is now empty.
+Red signal for south lane.
+
+Green signal for east lane.
+east lane is now empty.
+Red signal for east lane.
+
+Green signal for west lane.
+west lane is now empty.
+Red signal for west lane.
+
+--- Starting Cycle 4 ---
+
+Green signal for north lane.
+north lane is now empty.
+Red signal for north lane.
+
+Green signal for south lane.
+south lane is now empty.
+Red signal for south lane.
+
+Green signal for east lane.
+east lane is now empty.
+Red signal for east lane.
+
+Green signal for west lane.
+west lane is now empty.
+Red signal for west lane.
+
+Final Lane Status:
+north lane: No vehicles.
+south lane: No vehicles.
+east lane: No vehicles.
+west lane: No vehicles.
+
+Simulation complete.
